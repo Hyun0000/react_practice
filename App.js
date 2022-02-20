@@ -16,7 +16,7 @@ function App() {
     heigth : '500px'
   }
   
-  var data = 'Hello World';
+  var data = 'Hello World!';
   let post = "강남 고기 맛집"
 
   function func1() {
