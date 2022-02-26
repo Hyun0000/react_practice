@@ -2,19 +2,20 @@ import React, {useState} from 'react';
 import './App.css';
 
 function App() {
+// -------------------------- 변수 및 state 선언 부분 --------------------------
   // 글제목
   let [title, titleChange] = useState(['남자 코트 추천', '강남 우동 맛집', '잔망루피 짱']);  
 
   // 따봉(좋아요)
   let [good, goodChange] = useState([0,1,2]);
-
+// -------------------------- 함수 선언 부분 --------------------------
   // 글제목 변경 함수
   function changeTitle() {
     let newTitlesArr = [...title];
     // 수정을 위해 state 변경함수에 집어넣을 data를 만들자
     // 단, spread operator를 이용해 배열의 deep copy를 해야한다.
     // 값 공유를 하면 안 된다.(원본 state는 수정되면 안 된다.)
-
+// -------------------------- 함수 선언 부분 --------------------------
     // 방법1
     newTitlesArr.forEach(function(e, index) {
       if(e === title[0]) {
@@ -51,6 +52,7 @@ function App() {
     });
     goodChange(newGoodArr);
   }
+// -------------------------- return 부분 --------------------------
   return (
     <div className="App">
       <div className="black-nav">
@@ -88,9 +90,22 @@ function App() {
         <hr/>
       </div>
 
+      <Modal></Modal>
+      {/* <Modal/> ==> 이렇게만 써도 동일하게 사용 가능 */}
+
     </div>
   );
+}
 
+// 모달창 Compomnent 만들기
+function Modal() {
+  return (
+    <div className="modal">
+      <h2>제목</h2>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  );
 }
 
 export default App;
