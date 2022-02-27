@@ -115,6 +115,13 @@ function App() {
           // {modal} ? <Modal></Modal> : null
           // modal state에 {중괄호}를 씌우면 기능 작동이 안된다.
           // 아마 이곳을 JS 영역으로 인식해서 {중괄호}가 없어도 되는것 같다.
+
+          // 자세히
+          // let [modal, modalShow] = useState(false) 에서
+          // let modal, let modalShow 이름으로 변수가 생긴것이고,
+          // JS 영역에서 modal 혹은 modalShow 변수를 사용하기 위해서는
+          // {modal}과 같이 {중괄호}를 쓸 필요가 없기 때문에
+          // 그냥 modal만 써도 문제가 없는것이다.
         }
 
         {/* 
