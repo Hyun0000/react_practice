@@ -8,14 +8,17 @@ function App() {
 
   // 따봉(좋아요)
   let [good, goodChange] = useState([0,1,2]);
-// -------------------------- 함수 선언 부분 --------------------------
+
+  // 모달창 보여줌/안보여줌
+  let [modal, modalShow] = useState(false);
+// -------------------------- 함수 선언 부분 -----------------------------------
   // 글제목 변경 함수
   function changeTitle() {
     let newTitlesArr = [...title];
     // 수정을 위해 state 변경함수에 집어넣을 data를 만들자
     // 단, spread operator를 이용해 배열의 deep copy를 해야한다.
     // 값 공유를 하면 안 된다.(원본 state는 수정되면 안 된다.)
-// -------------------------- 함수 선언 부분 --------------------------
+
     // 방법1
     newTitlesArr.forEach(function(e, index) {
       if(e === title[0]) {
@@ -37,11 +40,13 @@ function App() {
     titleChange(newTitlesArr);
   }
 
+  // 글제목 정렬 함수
   function sortArr() {
     let newTitlesArr2 = [...title];
     titleChange(newTitlesArr2.sort());
   }
 
+  // 각 글의 따봉 +1 함수
   function goodUp(event) {
     let newGoodArr = [...good];
     let goodSpan = document.querySelectorAll('span');
@@ -52,7 +57,14 @@ function App() {
     });
     goodChange(newGoodArr);
   }
-// -------------------------- return 부분 --------------------------
+
+  // 모달 show 관리 함수
+  function modalFunc() {
+    // 내가 짠 코드, 딱 기본적인 코드이다.
+    if(modal === true) { modalShow(false); }
+    else { modalShow(true); }
+  }
+// -------------------------- return 부분 -----------------------------------
   return (
     <div className="App">
       <div className="black-nav">
@@ -90,8 +102,40 @@ function App() {
         <hr/>
       </div>
 
-      <Modal></Modal>
-      {/* <Modal/> ==> 이렇게만 써도 동일하게 사용 가능 */}
+      <button onClick={() => {modalShow(true)}}>모달창 only 열기 버튼</button>
+      <br/>
+      <button onClick={modalFunc}>모달 토글 버튼</button>
+      {/* 강사 코드 : 함수를 따로 만들 필요도 없고 훨씬 더 코드가 간단하다. */}
+      {/* <button onClick={() => {modalShow(!modal);}}>모달창 only 열기 버튼</button> */}
+
+        {
+          modal ? <Modal></Modal> : null
+          // null 뒤에 세미콜론(;) 쓰면 Error 발생
+
+          // {modal} ? <Modal></Modal> : null
+          // modal state에 {중괄호}를 씌우면 기능 작동이 안된다.
+          // 아마 이곳을 JS 영역으로 인식해서 {중괄호}가 없어도 되는것 같다.
+        }
+
+        {/* 
+          - <Modal/> 같은건 일종의 JS 표현식, 자료형이라고 생각하면 된다.
+          - 그렇기에 <Modal>을 if 문안에 집어넣을 수 있는 것이다.
+          - 하지만 {중괄호}안에서는 if 문을 사용할 수 없기때문에 대신 삼항연산자를 사용하는 것이다.
+          - JSX의 {중괄호}안에서는 변수명, 함수명등은 인식할 수 있지만 if 문은 인식을 못하는 것이다.
+          (그래서 if 대신에 삼항연산자를 사용)
+
+          * return(...) 부분 안에서 JS를 쓰고 싶으면 {중괄호}를 치고 그 안에 JS 코드를 작성하면 된다.
+        */}
+
+        {/* JS 코드 사용 예시 */}
+        {/* 쉼표를 붙이니까 여러개의 JS 코드를 사용할 수 있었다.(내가 직접 발견) */}
+        {
+          console.log(1),
+          console.log(2),
+          console.log(3),
+          console.log(4),
+          console.log(5)
+        }
 
     </div>
   );
