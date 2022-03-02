@@ -4,10 +4,10 @@ import './App.css';
 function App() {
 // -------------------------- 변수 및 state 선언 부분 --------------------------
   // 글제목
-  let [title, titleChange] = useState(['남자 코트 추천', '강남 우동 맛집', '잔망루피 짱']);  
+  let [title, titleChange] = useState(['남자 코트 추천', '강남 우동 맛집', '잔망루피 짱']);
 
   // 따봉(좋아요)
-  let [good, goodChange] = useState([0,1,2]);
+  let [good, goodChange] = useState([0,2,4]);
 
   // 모달창 보여줌/안보여줌
   let [modal, modalShow] = useState(false);
@@ -64,6 +64,7 @@ function App() {
     if(modal === true) { modalShow(false); }
     else { modalShow(true); }
   }
+
 // -------------------------- return 부분 -----------------------------------
   return (
     <div className="App">
@@ -75,6 +76,23 @@ function App() {
       <br/>
       <button onClick={sortArr}>글 정렬</button>
 
+
+      {
+        title.map(function(title, index) {
+          return (
+              <div className='list'>
+                <h3>
+                  {title}
+                  <span onClick = {goodUp}> {index + 1}번글 👍 </span> {good[index]}
+                </h3>
+                <p>2월 2{index}일 발행</p>
+                <hr/>
+              </div>
+            )
+        })
+      }
+
+{/*
       <div className='list'>
         <h3>
           {title[0]}
@@ -101,6 +119,7 @@ function App() {
         <p>2월 22일 발행</p>
         <hr/>
       </div>
+*/}
 
       <button onClick={() => {modalShow(true)}}>모달창 only 열기 버튼</button>
       <br/>
