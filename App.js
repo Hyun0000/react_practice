@@ -96,7 +96,7 @@ function App() {
       <button onClick={modalFunc}>모달 토글 버튼</button>
 
       {
-        modal ? <Modal></Modal> : null
+        modal ? <Modal title={title} good={good}></Modal> : null
       }
 
     </div>
@@ -104,12 +104,13 @@ function App() {
 }
 
 // 모달창 Compomnent 만들기
-function Modal() {
+function Modal(props) {
   return (
     <div className="modal">
-      <h2>제목</h2>
+      <h2>{props.title[0]}</h2>
       <p>날짜</p>
       <p>상세내용</p>
+      <p>{props.good[0]}</p>
     </div>
   );
 }
