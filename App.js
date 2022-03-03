@@ -76,7 +76,6 @@ function App() {
       <br/>
       <button onClick={sortArr}>글 정렬</button>
 
-
       {
         title.map(function(title, index) {
           return (
@@ -92,76 +91,13 @@ function App() {
         })
       }
 
-{/*
-      <div className='list'>
-        <h3>
-          {title[0]}
-          <span onClick = {goodUp}>1번👍</span>{good[0]}
-        </h3>
-        <p>2월 20일 발행</p>
-        <hr/>
-      </div>
-
-      <div className='list'>
-        <h3>
-          {title[1]}
-          <span onClick = {goodUp}>2번👍</span>{good[1]}
-        </h3>
-        <p>2월 21일 발행</p>
-        <hr/>
-      </div>
-
-      <div className='list'>
-        <h3>
-          {title[2]}
-          <span onClick = {goodUp}>3번👍</span>{good[2]}
-        </h3>
-        <p>2월 22일 발행</p>
-        <hr/>
-      </div>
-*/}
-
       <button onClick={() => {modalShow(true)}}>모달창 only 열기 버튼</button>
       <br/>
       <button onClick={modalFunc}>모달 토글 버튼</button>
-      {/* 강사 코드 : 함수를 따로 만들 필요도 없고 훨씬 더 코드가 간단하다. */}
-      {/* <button onClick={() => {modalShow(!modal);}}>모달창 only 열기 버튼</button> */}
 
-        {
-          modal ? <Modal></Modal> : null
-          // null 뒤에 세미콜론(;) 쓰면 Error 발생
-
-          // {modal} ? <Modal></Modal> : null
-          // modal state에 {중괄호}를 씌우면 기능 작동이 안된다.
-          // 아마 이곳을 JS 영역으로 인식해서 {중괄호}가 없어도 되는것 같다.
-
-          // 자세히
-          // let [modal, modalShow] = useState(false) 에서
-          // let modal, let modalShow 이름으로 변수가 생긴것이고,
-          // JS 영역에서 modal 혹은 modalShow 변수를 사용하기 위해서는
-          // {modal}과 같이 {중괄호}를 쓸 필요가 없기 때문에
-          // 그냥 modal만 써도 문제가 없는것이다.
-        }
-
-        {/* 
-          - <Modal/> 같은건 일종의 JS 표현식, 자료형이라고 생각하면 된다.
-          - 그렇기에 <Modal>을 if 문안에 집어넣을 수 있는 것이다.
-          - 하지만 {중괄호}안에서는 if 문을 사용할 수 없기때문에 대신 삼항연산자를 사용하는 것이다.
-          - JSX의 {중괄호}안에서는 변수명, 함수명등은 인식할 수 있지만 if 문은 인식을 못하는 것이다.
-          (그래서 if 대신에 삼항연산자를 사용)
-
-          * return(...) 부분 안에서 JS를 쓰고 싶으면 {중괄호}를 치고 그 안에 JS 코드를 작성하면 된다.
-        */}
-
-        {/* JS 코드 사용 예시 */}
-        {/* 쉼표를 붙이니까 여러개의 JS 코드를 사용할 수 있었다.(내가 직접 발견) */}
-        {
-          console.log(1),
-          console.log(2),
-          console.log(3),
-          console.log(4),
-          console.log(5)
-        }
+      {
+        modal ? <Modal></Modal> : null
+      }
 
     </div>
   );
