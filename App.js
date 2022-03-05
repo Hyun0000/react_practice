@@ -6,11 +6,29 @@ function App() {
   // 글제목
   let [title, titleChange] = useState(['남자 코트 추천', '강남 우동 맛집', '잔망루피 짱']);
 
+  // modalPlus state에 넣어주기 위한 arr 변수 생성
+  let arr = [];
+  for (let i = 0; i < title.length; i++) {
+    arr[i] = i;
+  }
+
+  // 날짜
+  let [postDate, postDateChange] = useState(['2월 20일 발행', '2월 21일 발행', '2월 22일 발행']);
+
   // 따봉(좋아요)
   let [good, goodChange] = useState([0,2,4]);
 
   // 모달창 보여줌/안보여줌
   let [modal, modalShow] = useState(false);
+
+  // 글제목 OR <button>을 눌렀을 때 몇 번째 순서의 글제목을 눌렀는지에 대한 state 변수
+  let [clickNum, clickNumChange] = useState(-1);
+  // state 초기값을 -1 을 설정한 이유
+  // 맨 처음 page load 시 (clickNum == modalPlus[index]) 조건을 false를 주기 위해서이다.
+  // (clickNum == modalPlus[index]) ==> (clickNum == modalPlus[0]) ==> (-1 == 0) = false
+
+  // 클릭한 글제목 바로 밑에 모달창을 띄우기 위한 변수
+  let [modalPlus, modalPlusChange] = useState(arr);
 // -------------------------- 함수 선언 부분 -----------------------------------
   // 글제목 변경 함수
   function changeTitle() {
@@ -57,14 +75,6 @@ function App() {
     });
     goodChange(newGoodArr);
   }
-
-  // 모달 show 관리 함수
-  function modalFunc() {
-    // 내가 짠 코드, 딱 기본적인 코드이다.
-    if(modal === true) { modalShow(false); }
-    else { modalShow(true); }
-  }
-
 // -------------------------- return 부분 -----------------------------------
   return (
     <div className="App">
@@ -75,29 +85,51 @@ function App() {
       <button onClick={changeTitle}>제목 변경</button>
       <br/>
       <button onClick={sortArr}>글 정렬</button>
+      <br/>
+      <button onClick={() => {modalShow(!modal)}}>모달 토글 버튼</button>
 
       {
-        title.map(function(title, index) {
+        title.map(function(titleEle, index) {
           return (
-              <div className='list'>
+              <div className='list' onClick={function() {
+                clickNumChange(index);
+              }}>
                 <h3>
-                  {title}
-                  <span onClick = {goodUp}> {index + 1}번글 👍 </span> {good[index]}
+                {/* <h3 onClick={() => {clickNumChange(index); modalShow(!modal);}}> */}
+                  {titleEle}
+                  <span onClick = {goodUp}> 👍 </span> {good[index]}
+                  <br/>
                 </h3>
-                <p>2월 2{index}일 발행</p>
+                <p>{postDate[index]}</p>
+                {
+                  (clickNum == modalPlus[index])
+                  ? <Modal title={title} postDate={postDate} clickNum={clickNum}></Modal>
+                  : null
+                }
                 <hr/>
               </div>
             )
         })
       }
 
-      <button onClick={() => {modalShow(true)}}>모달창 only 열기 버튼</button>
-      <br/>
-      <button onClick={modalFunc}>모달 토글 버튼</button>
+      {/*
+        버튼을 만든후 모달창의 글제목을 변경할 때
 
-      {
-        modal ? <Modal title={title} good={good}></Modal> : null
-      }
+        <button onClick={()=>{clickNumChange(0); modalShow(!modal);}}>버튼1</button>
+        <br/>
+        <button onClick={()=>{clickNumChange(1); modalShow(!modal);}}>버튼2</button>
+        <br/>
+        <button onClick={()=>{clickNumChange(2); modalShow(!modal);}}>버튼3</button>
+        <br/>
+      */}
+
+      
+
+      {/* {
+        modal
+        ? <Modal title={title} postDate={postDate} clickNum={clickNum}></Modal>
+        : null
+      } */}
 
     </div>
   );
@@ -107,10 +139,9 @@ function App() {
 function Modal(props) {
   return (
     <div className="modal">
-      <h2>{props.title[0]}</h2>
-      <p>날짜</p>
-      <p>상세내용</p>
-      <p>{props.good[0]}</p>
+      <h3>{props.title[props.clickNum]}</h3>
+      <p>{props.postDate[props.clickNum]}</p>
+      <p>상세내용 {props.clickNum + 1}</p>
     </div>
   );
 }
