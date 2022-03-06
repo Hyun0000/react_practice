@@ -66,6 +66,18 @@ function App() {
     });
     goodChange(newGoodArr);
   }
+
+  // 글제목 추가 함수
+  function plusPost() {
+    // 원본 state는 불변해야하므로 title state에 대한 새로운 array deep copy 본 생성
+    let newTitleArr = [...title];
+
+    // unshift : 배열의 맨 앞에(index = 0) 새로운 요소를 추가해주는 함수
+    newTitleArr.unshift(inputValue);
+
+    //  새로운 title state로 변경
+    titleChange(newTitleArr);
+  }
 // -------------------------- return 부분 -----------------------------------
   return (
     <div className="App">
@@ -101,13 +113,11 @@ function App() {
         : null
       }
 
-      <input type="text" onChange={(evnet) => {
-        inputValueChange(evnet.target.value);
-      }}/>
-      <br />
-      입력값 : {inputValue}
-      <br />
-      <button onClick={() => {console.log(inputValue);}}>input에 입력된 값 콘솔에 출력</button>
+    <div className="publish">
+        <input onChange={(e) => {inputValueChange(e.target.value);}}/>
+        <button onClick={plusPost}>저장</button>
+    </div>
+
     </div>
   );
 }
