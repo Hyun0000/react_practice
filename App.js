@@ -6,12 +6,6 @@ function App() {
   // 글제목
   let [title, titleChange] = useState(['남자 코트 추천', '강남 우동 맛집', '잔망루피 짱']);
 
-  // modalPlus state에 넣어주기 위한 arr 변수 생성
-  let arr = [];
-  for (let i = 0; i < title.length; i++) {
-    arr[i] = i;
-  }
-
   // 날짜
   let [postDate, postDateChange] = useState(['2월 20일 발행', '2월 21일 발행', '2월 22일 발행']);
 
@@ -22,13 +16,7 @@ function App() {
   let [modal, modalShow] = useState(false);
 
   // 글제목 OR <button>을 눌렀을 때 몇 번째 순서의 글제목을 눌렀는지에 대한 state 변수
-  let [clickNum, clickNumChange] = useState(-1);
-  // state 초기값을 -1 을 설정한 이유
-  // 맨 처음 page load 시 (clickNum == modalPlus[index]) 조건을 false를 주기 위해서이다.
-  // (clickNum == modalPlus[index]) ==> (clickNum == modalPlus[0]) ==> (-1 == 0) = false
-
-  // 클릭한 글제목 바로 밑에 모달창을 띄우기 위한 변수
-  let [modalPlus, modalPlusChange] = useState(arr);
+  let [clickNum, clickNumChange] = useState(0);
 // -------------------------- 함수 선언 부분 -----------------------------------
   // 글제목 변경 함수
   function changeTitle() {
@@ -91,21 +79,13 @@ function App() {
       {
         title.map(function(titleEle, index) {
           return (
-              <div className='list' onClick={function() {
-                clickNumChange(index);
-              }}>
-                <h3>
-                {/* <h3 onClick={() => {clickNumChange(index); modalShow(!modal);}}> */}
+              <div className='list'>
+                <h3 onClick={() => {clickNumChange(index); modalShow(!modal);}}>
                   {titleEle}
                   <span onClick = {goodUp}> 👍 </span> {good[index]}
                   <br/>
                 </h3>
                 <p>{postDate[index]}</p>
-                {
-                  (clickNum == modalPlus[index])
-                  ? <Modal title={title} postDate={postDate} clickNum={clickNum}></Modal>
-                  : null
-                }
                 <hr/>
               </div>
             )
@@ -125,11 +105,11 @@ function App() {
 
       
 
-      {/* {
+      {
         modal
         ? <Modal title={title} postDate={postDate} clickNum={clickNum}></Modal>
         : null
-      } */}
+      }
 
     </div>
   );
