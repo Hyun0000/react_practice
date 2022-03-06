@@ -17,6 +17,9 @@ function App() {
 
   // 글제목 OR <button>을 눌렀을 때 몇 번째 순서의 글제목을 눌렀는지에 대한 state 변수
   let [clickNum, clickNumChange] = useState(0);
+
+  // <input>을 통해 들어오는 사용자 입력값
+  let [inputValue, inputValueChange] = useState("");
 // -------------------------- 함수 선언 부분 -----------------------------------
   // 글제목 변경 함수
   function changeTitle() {
@@ -79,7 +82,7 @@ function App() {
       {
         title.map(function(titleEle, index) {
           return (
-              <div className='list'>
+              <div className='list' key={index}>
                 <h3 onClick={() => {clickNumChange(index); modalShow(!modal);}}>
                   {titleEle}
                   <span onClick = {goodUp}> 👍 </span> {good[index]}
@@ -92,25 +95,19 @@ function App() {
         })
       }
 
-      {/*
-        버튼을 만든후 모달창의 글제목을 변경할 때
-
-        <button onClick={()=>{clickNumChange(0); modalShow(!modal);}}>버튼1</button>
-        <br/>
-        <button onClick={()=>{clickNumChange(1); modalShow(!modal);}}>버튼2</button>
-        <br/>
-        <button onClick={()=>{clickNumChange(2); modalShow(!modal);}}>버튼3</button>
-        <br/>
-      */}
-
-      
-
       {
         modal
         ? <Modal title={title} postDate={postDate} clickNum={clickNum}></Modal>
         : null
       }
 
+      <input type="text" onChange={(evnet) => {
+        inputValueChange(evnet.target.value);
+      }}/>
+      <br />
+      입력값 : {inputValue}
+      <br />
+      <button onClick={() => {console.log(inputValue);}}>input에 입력된 값 콘솔에 출력</button>
     </div>
   );
 }
