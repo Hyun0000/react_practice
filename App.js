@@ -85,6 +85,9 @@ function App() {
         <div>개발 blog</div>
       </div>
 
+      <Profile/>
+
+      <br/><br/><br/><br/>
       <button onClick={changeTitle}>제목 변경</button>
       <br/>
       <button onClick={sortArr}>글 정렬</button>
@@ -131,6 +134,36 @@ function Modal(props) {
       <p>상세내용 {props.clickNum + 1}</p>
     </div>
   );
+}
+
+// 옛날 방식으로 Compomnent 만들기
+class Profile extends React.Component {
+  constructor() {
+    super();
+    this.state = { name : 'Kim', age : 30 }
+    this.fruit = "apple"; // 일반 변수 생성
+  }
+
+  // function이라는 키워드는 없어야한다. 있으면 error 난다.
+  changeName = () => {
+    // arrow function의 특징으로인해 상위의 this 값을 그대로 물려받는다.
+    this.state.name === "Kim"
+    ? this.setState( {name : 'Park'} )
+    : this.setState( {name : 'Kim'} )
+  }
+
+  render() {
+    return(
+      // 원하는 JSX 작성
+      <div>
+        <h1>프로필영역</h1>
+        <h3>저는 {this.state.name} 입니다.</h3>
+        <h3>제 나이는 {this.state.age}살 입니다.</h3>
+        <h3>제가 좋아하는 과일은 {this.fruit}입니다.</h3> {/* 일반 변수 사용 */}
+        <button onClick={ this.changeName }>이름바꾸기 버튼</button>
+      </div>
+    )
+  }
 }
 
 export default App;
